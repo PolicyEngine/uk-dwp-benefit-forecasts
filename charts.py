@@ -1,8 +1,12 @@
 import plotly.express as px
 import plotly.graph_objects as go
 
+
 def create_benefit_chart(df, benefit, spending):
-    subset = df[(df.Type == ("Spending" if spending else "Caseloads")) & (df["Benefit"] == benefit)]
+    subset = df[
+        (df.Type == ("Spending" if spending else "Caseloads"))
+        & (df["Benefit"] == benefit)
+    ]
     fig = px.line(
         subset,
         x="Year",
@@ -24,7 +28,12 @@ def create_benefit_chart(df, benefit, spending):
         trace.line.dash = "dot"
 
     # Add a solid line with the actual data
-    outturns = df[(df.Type == ("Spending" if spending else "Caseloads")) & (~df.Forecast) & (df["Benefit"] == benefit) & (df["Forecast year"] == 2024)]
+    outturns = df[
+        (df.Type == ("Spending" if spending else "Caseloads"))
+        & (~df.Forecast)
+        & (df["Benefit"] == benefit)
+        & (df["Forecast year"] == 2024)
+    ]
 
     fig.add_trace(
         go.Scatter(
