@@ -1,5 +1,7 @@
 import plotly.express as px
 import plotly.graph_objects as go
+from policyengine_core.charts import *
+from plotly.express.colors import sample_colorscale
 
 
 def create_benefit_chart(df, benefit, spending):
@@ -7,11 +9,15 @@ def create_benefit_chart(df, benefit, spending):
         (df.Type == ("Spending" if spending else "Caseloads"))
         & (df["Benefit"] == benefit)
     ]
+    blues = sample_colorscale(
+        px.colors.sequential.Blues, df["Forecast year"].unique().size
+    )
     fig = px.line(
         subset,
         x="Year",
         y="Value",
         color="Forecast year",
+        color_discrete_sequence=blues,
     ).update_layout(
         height=600,
         title=f"Benefit {'spending' if spending else 'caseload'} forecast for {benefit}",
