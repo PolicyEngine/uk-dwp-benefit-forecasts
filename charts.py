@@ -1,6 +1,5 @@
 import plotly.express as px
 import plotly.graph_objects as go
-from policyengine_core.charts import *
 from plotly.express.colors import sample_colorscale
 
 
